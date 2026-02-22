@@ -3,3 +3,9 @@ uvicorn
 PyPDF2
 pdfplumber
 pandas
+python-dotenv
+python-multipart
+pytesseract
+google-generativeai
+pillow
+requests
