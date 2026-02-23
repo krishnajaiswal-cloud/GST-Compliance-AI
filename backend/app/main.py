@@ -28,3 +28,6 @@ app.include_router(processing_router, prefix="/process")
 @app.get("/")
 def health_check():
     return {"status": "Backend running"}
+@app.get("/")
+def root():
+    return {"status": "API is running"}
