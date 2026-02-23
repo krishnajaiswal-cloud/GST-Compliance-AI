@@ -9,3 +9,4 @@ pytesseract
 google-generativeai
 pillow
 requests
+render.yaml

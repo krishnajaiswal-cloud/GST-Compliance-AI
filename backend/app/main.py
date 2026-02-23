@@ -1,7 +1,9 @@
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.upload import router as upload_router
 from app.api.processing import router as processing_router
+
 
 app = FastAPI(title="AI GST Document Processing API")
 
