@@ -1,12 +1,13 @@
 import UploadForm from "../components/UploadForm";
 import { useState } from "react";
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 const Upload = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  // 🔹 This function connects to FastAPI
-  const handleUpload = async ({ clientName, month, files }) => {
+  const handleUpload = async ({ clientName, month, files }: any) => {
     if (!clientName || !month || files.length === 0) {
       setMessage("❌ Please fill all fields and select files");
       return;
@@ -24,19 +25,21 @@ const Upload = () => {
       setLoading(true);
       setMessage("");
 
-      const response = await fetch("http://127.0.0.1:8000/upload/", {
+      const response = await fetch(`${API_BASE}/upload/`, {
         method: "POST",
         body: formData,
       });
 
-      const data = await response.json();
+      const text = await response.text();
 
       if (!response.ok) {
-        throw new Error(data.detail || "Upload failed");
+        throw new Error(text || "Upload failed");
       }
 
+      const data = JSON.parse(text);
+
       setMessage(`✅ ${data.file_count} files uploaded successfully`);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       setMessage("❌ Error uploading files");
     } finally {
@@ -54,7 +57,6 @@ const Upload = () => {
           Upload invoice files for a specific client and tax period.
         </p>
 
-        {/* 👇 UI stays same, logic injected */}
         <UploadForm onSubmit={handleUpload} loading={loading} />
 
         {message && (
